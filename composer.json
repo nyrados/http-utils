@@ -1,0 +1,14 @@
+{
+    "name": "nyrados/http-utils",
+    "version": "0.1",
+    "description": "Basic Utils for working with HTTP in PHP",
+    "require": {
+        "php": "^7.2",
+        "psr/http-message": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "\\Nyrados\\Http\\Utils\\": "src/"
+        }
+    }
+}
