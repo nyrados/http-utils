@@ -33,12 +33,11 @@ class ResponseDumper
     }
     
     /**
-     * Writes given Headers & Response Code
+     * Writes given headers & response code
      *
-     * @param boolean $contentLength for set $contentLength Header for Body
      * @return void
      */
-    public function dumpHeaders($contentLength = true): void
+    public function dumpHeaders(): void
     {
         if (!$this->sentHeaders) {
             foreach ($this->response->getHeaders() as $name => $values) {
@@ -48,30 +47,24 @@ class ResponseDumper
             }
 
             header('HTTP/' . $this->response->getProtocolVersion() . ' ' . $this->response->getStatusCode() . ' ' . $this->response->getReasonPhrase());
-            
-            if ($contentLength) {
-                $stream = $this->response->getBody();
-                header('Content-Length: ' . $stream->getSize());
-            }
 
             $this->sentHeaders = true;
         }
     }
     
     /**
-     * Dumps Headers & Writes Content
+     * Dumps headers & writes body
      *
-     * @param boolean $contentLength see dumpHeaders()
      * @return void
      */
     public function dump(): void
     {
-        $this->dumpHeaders($contentLength);
+        $this->dumpHeaders();
         $this->dumpBody();
     }
     
     /**
-     * Dumps Body and Outputs it directly
+     * Dumps body and outputs it directly
      *
      * @return void
      */

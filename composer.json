@@ -1,6 +1,6 @@
 {
     "name": "nyrados/http-utils",
-    "version": "0.1",
+    "version": "0.1.1",
     "description": "Basic Utils for working with HTTP in PHP",
     "require": {
         "php": "^7.2",
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "\\Nyrados\\Http\\Utils\\": "src/"
+            "Nyrados\\Http\\Utils\\": "src/"
         }
     }
 }
