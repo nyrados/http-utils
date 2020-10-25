@@ -15,6 +15,7 @@ class ResponseDumper
     
     private $end;
     private $start = 0;
+    
     private $sentHeaders = false;
     private $streamed = false;
     

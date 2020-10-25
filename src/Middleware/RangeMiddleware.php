@@ -10,6 +10,9 @@ use RuntimeException;
 
 class RangeMiddleware implements MiddlewareInterface
 {
+
+    use InvokeableMiddlewareTrait;
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);

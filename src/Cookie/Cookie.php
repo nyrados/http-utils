@@ -2,14 +2,18 @@
 
 namespace Nyrados\Http\Utils\Cookie;
 
+use DateTime;
+
 class Cookie
 {
     public const 
-        DATE_FORMAT = 'D, d M Y H:i:s T',
-        ATTRIBUTE_SECURE = 'Secure',
+        DATE_FORMAT = 'D, d M Y H:i:s T', 
         ATTRIBUTE_HTTP_ONLY = 'HttpOnly',
-        ATTRIBUTE_DOMAIN = 'Domain',
         ATTRIBUTE_SAME_SITE = 'SameSite',
+        ATTRIBUTE_EXPIRES = 'Expires',
+        ATTRIBUTE_MAX_AGE = 'Max-Age',
+        ATTRIBUTE_SECURE = 'Secure',
+        ATTRIBUTE_DOMAIN = 'Domain',
         ATTRIBUTE_PATH = 'Path'
     ;
 
