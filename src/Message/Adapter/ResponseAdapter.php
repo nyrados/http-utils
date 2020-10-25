@@ -8,12 +8,10 @@ use Psr\Http\Message\ResponseInterface;
 class ResponseAdapter extends MessageAdapter implements ResponseInterface
 {
 
-    /**
-     * @var ResponseInterface
-     */
+    /** @var ResponseInterface */
     protected $target;
 
-    /** @var ServerCookie[]  */
+    /** @var array<string, ServerCookie>  */
     private $cookies = [];
 
     public function __construct(ResponseInterface $response)
@@ -42,7 +40,7 @@ class ResponseAdapter extends MessageAdapter implements ResponseInterface
      * It is added to the header list of the response
      *
      * @param ServerCookie $cookie
-     * @return self
+     * @return static
      */
     public function withCookie(ServerCookie $cookie): self
     {
@@ -53,10 +51,23 @@ class ResponseAdapter extends MessageAdapter implements ResponseInterface
     }
 
     /**
+     * Returns response with
+     *
+     * @param string $cookie
+     * @return static
+     */
+    public function withRemovedCookie(string $cookie): self	
+    {
+        return $this->withCookie((new ServerCookie($cookie, ''))->asExpired());
+    }
+
+    /**
      * Returns response without a specific cookie.
+     * 
+     * To remove a cookie for the client use withRemovedCookie()
      *
      * @param string $name
-     * @return self
+     * @return static
      */
     public function withoutCookie(string $name): self
     {

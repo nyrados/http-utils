@@ -41,21 +41,38 @@ class Cookie
     {
         return $this->value;
     }
-
-
     
+    /**
+     * Returns string representation
+     *
+     * @return string
+     */
     public function __toString()
     {
-        return sprintf('%s=%s', $this->name, $this->value);
+        return $this->name . '=' . $this->value;
     }
 
+    /**
+     * Parses a Cookie (name=value) to a cookie object
+     *
+     * @param string $value
+     * @return self
+     */
     public static function parseSingleCookie(string $value): self
     {
-        $explode = explode('=', $value, 1);
+        $explode = explode('=', $value, 2);
 
         return new self($explode[0], $explode[1]);
     }
 
+    /**
+     * Parses cookie line (name=value; name2=value2) to an array of cookies
+     * 
+     * Can be used for the cookie header in a request 
+     *
+     * @param string $value
+     * @return array<self>
+     */
     public static function parseCookieLine(string $value): array
     {
         return array_map(

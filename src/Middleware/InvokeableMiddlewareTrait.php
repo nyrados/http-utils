@@ -9,7 +9,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 trait InvokeableMiddlewareTrait
 {
-    abstract public function process(ServerRequestInterface $request, RequestHandlerInterface $handler);
+    abstract public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface;
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
     {

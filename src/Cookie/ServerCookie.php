@@ -35,7 +35,7 @@ class ServerCookie extends Cookie
     }
 
     /**
-     * Checks if attribute is set#
+     * Checks if attribute is set
      * 
      * The attribute name is case-insetive
      *
@@ -99,7 +99,7 @@ class ServerCookie extends Cookie
      * Returns new instance with "Expire" attribute and removes "Max-Age" attribute
      *
      * @param DateTime $expires
-     * @return self
+     * @return static
      */
     public function withExpireDate(DateTime $expires): self
     {
@@ -108,6 +108,16 @@ class ServerCookie extends Cookie
         $new->maxAge = null;
 
         return $new;
+    }
+
+    /**
+     * Returns new instance for an expired cookie 
+     *
+     * @return static
+     */
+    public function asExpired(): self
+    {
+        return $this->withExpireDate((new DateTime())->setTimestamp(1));
     }
 
     /**
@@ -134,6 +144,12 @@ class ServerCookie extends Cookie
         return $string;
     }
 
+    /**
+     * Parses a Set-Cookie header.
+     *
+     * @param string $headerLine
+     * @return self
+     */
     public static function fromHeaderLine(string $headerLine): self
     {
         $elements = explode('; ', $headerLine);

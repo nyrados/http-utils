@@ -16,8 +16,6 @@ class UploadedFileFactory extends GuzzleFactory implements UploadedFileFactoryIn
         ?string $clientFilename = null, 
         ?string $clientMediaType = null
     ): UploadedFileInterface {
-        
         return new UploadedFile($stream, $stream, $error, $clientFilename, $clientMediaType);
-
     }
 }

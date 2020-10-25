@@ -2,7 +2,6 @@
 namespace Nyrados\Http\Utils;
 
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 /**
  * Class for dumping PSR-7 response
@@ -64,28 +63,29 @@ class ResponseDumper
     }
     
     /**
-     * Dumps body and outputs it directly
+     * Dumps response body and outputs it directly
      *
      * @return void
      */
     public function dumpBody(): void
     {
-        if (!$this->streamed) {
-            $stream = $this->response->getBody();
+        if ($this->streamed) {
+            return;
+        }
 
-            //Dump Stream
-            $buffer = 1024 * 8;
-            $stream->seek($this->start);
-            set_time_limit(0);
-            while (!$stream->eof() && ($p = $stream->tell()) <= $this->end) {
-                if ($p + $buffer > $this->end) {
-                    $buffer = $this->end - $p + 1;
-                }
+        $stream = $this->response->getBody();
 
-                echo $stream->read($buffer);
-                flush();
+        //Dump Stream
+        $buffer = 1024 * 8;
+        $stream->seek($this->start);
+        set_time_limit(0);
+        while (!$stream->eof() && ($p = $stream->tell()) <= $this->end) {
+            if ($p + $buffer > $this->end) {
+                $buffer = $this->end - $p + 1;
             }
-            $stream->close();
+
+            echo $stream->read($buffer);
+            flush();
         }
     }
 }
