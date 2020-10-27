@@ -1,11 +1,12 @@
 <?php
-namespace Nyrados\Http\Utils\Message\Adapter;
+
+namespace Nyrados\Http\Utils\Message\Wrapper;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 use RuntimeException;
 
-class RequestAdapter extends MessageAdapter implements RequestInterface
+class Request extends Message implements RequestInterface
 {
     /** @var RequestInterface */
     protected $target;
@@ -45,17 +46,38 @@ class RequestAdapter extends MessageAdapter implements RequestInterface
         return $this->target->getUri();
     }
 
-    public function withFormParams(array $params, ?string $contentType = 'application/x-www-form')
+    /**
+     * Returns the request with form params in the body
+     * 
+     * It requires a writeable body.
+     * You can pass null to $contentType if you dont want to set a content-type 
+     *
+     * @param array $params
+     * @param string|null $contentType
+     * @return self
+     */
+    public function withFormParams(array $params, ?string $contentType = 'application/x-www-form'): self
     {
-        return $this->getWithNewBody($contentType, http_build_query($params));
+        return $this->getWithNewBody(http_build_query($params), $contentType);
     }
 
-    public function withJsonBody(array $params, int $flags = JSON_UNESCAPED_SLASHES, ?string $contentType = 'application/json')
+    /**
+     * Returns the request with json in the body
+     * 
+     * It requires a writeable body.
+     * You can pass null to $contentType if you dont want to set a content-type 
+     *
+     * @param array $params
+     * @param int $flags
+     * @param string|null $contentType
+     * @return self
+     */
+    public function withJsonBody(array $params, int $flags = JSON_UNESCAPED_SLASHES, ?string $contentType = 'application/json'): self
     {
-        return $this->getWithNewBody($contentType, json_encode($params, $flags));
+        return $this->getWithNewBody(json_encode($params, $flags), $contentType);
     }
 
-    private function getWithNewBody(?string $contentType, string $content): self
+    private function getWithNewBody(string $content, string $contentType = null): self
     {
         $body = $this->getBody();
 

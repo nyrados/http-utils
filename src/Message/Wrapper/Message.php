@@ -1,11 +1,11 @@
 <?php
 
-namespace Nyrados\Http\Utils\Message\Adapter;
+namespace Nyrados\Http\Utils\Message\Wrapper;
 
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
-class MessageAdapter implements MessageInterface
+class Message implements MessageInterface
 {
     /** @var MessageInterface */
     protected $target;

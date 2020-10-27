@@ -1,11 +1,11 @@
 <?php
 
-namespace Nyrados\Http\Utils\Message\Adapter;
+namespace Nyrados\Http\Utils\Message\Wrapper;
 
 use Nyrados\Http\Utils\Cookie\ServerCookie;
 use Psr\Http\Message\ResponseInterface;
 
-class ResponseAdapter extends MessageAdapter implements ResponseInterface
+class Response extends Message implements ResponseInterface
 {
 
     /** @var ResponseInterface */
