@@ -7,8 +7,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class MiddlewareAdapter implements MiddlewareInterface
+class MiddlewareWrapper implements MiddlewareInterface
 {
+    /** @var callable */
     private $middleware;
 
     public function __construct(callable $middleware)
